@@ -1,0 +1,18 @@
+###
+POST http://localhost:4000/api/user/signup
+Content-Type: application/json
+
+{
+    "name":"mohamed",
+    "email":"mohamed@gmail.com",
+    "password":"Mohamed@12345"
+}
+###
+POST http://localhost:4000/api/user/send-email
+Content-Type: application/json
+
+{ 
+    "recipient":"mohamedkhassar775@gmail.com",
+    "subject":"hi",
+    "message":"hi"
+}

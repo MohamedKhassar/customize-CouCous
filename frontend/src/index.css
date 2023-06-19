@@ -1,0 +1,65 @@
+/*/* google font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap');
+
+/* layout */
+
+/* new workout form */
+.formlo label,.formlo input {
+  display: block;
+}
+.formlo input {
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.btn{
+    background-color: #fbaf32;
+    width: 100px;
+    padding: 15px 0;
+    text-align: center;
+    border-radius: 25px;
+    font-weight: bold;
+    border: none;
+    color: #f3eee6;
+    cursor: pointer;
+    transition: 0.5s;
+  cursor: pointer;
+}
+.btn:hover{
+    border: 2px solid #719a0a;
+    color: #fbaf32;
+    background: transparent;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+div.error {
+  padding: 10px;
+  background: #ffefef;
+  border: 1px solid var(--error);
+  color: var(--error);
+  border-radius: 4px;
+  margin: 20px 0;
+}
+input.error {
+  border: 1px solid var(--error);
+}
+.mimi{
+    width: 20%;
+    margin-left: 550px;
+    margin-top: 100px;
+    border: 2px solid #719a0a3e;
+    padding: 30px 30px 30px 30px;
+    border-radius:12px ;
+    box-shadow: 4px 4px 4px #4f4f4f5a;
+}
+.mimi h3{
+    color: #fbaf32;
+    font-size: 25px;
+}
+.mimi h3 span{
+    color: #719a0a;
+}
