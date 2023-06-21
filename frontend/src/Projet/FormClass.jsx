@@ -8,6 +8,8 @@ import Swal from "sweetalert2";
 import Footer from './Footer';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
+import emailjs from "@emailjs/browser"
+import Reicipt from './reicipt';
 
 function FormClass() {
   const { user } = useAuthContext()
@@ -20,21 +22,34 @@ function FormClass() {
   const [modalLogin, setModalLogin] = useState(false);
   const nav = useNavigate()
   const [recipient, setRecipient] = useState(user.email);
+  var [price,setP]=useState(0)
 
-
+  
+ 
   const sendEmail = async (e) => {
     e.preventDefault();
-    const itemsToSend = selectedItems.concat(selectedItemsMeat, selectedOption);
-    const emailBody = itemsToSend.map((item) => item.name).join(', ');
-    const text=`<b><i>Thank you for your order!</i></b>
-
-    <ul>
-    <li>
-    ${emailBody}
-    </li>
-    </ul>
-    
-    <b>Please let us know if you have any questions or concerns regarding your order.</b>
+    const itemsToSend = selectedItems
+    const mt=selectedItemsMeat.map((item) => item.name)
+    console.log(mt);
+    const opt=selectedOption
+    const vt = itemsToSend.map((item) => item.name).join(', ');
+    const text=`
+    <h1>Thank you for your order!</h1>
+        <ul>
+            <li>
+            CousCous Type : ${opt}
+            </li>
+            <li>
+            The Type Of Meat: ${mt[0]}
+            </li>
+            <li>
+            Vegetables : ${vt}
+            </li>
+            <li>
+            total : ${price}
+            </li>
+        </ul>
+        <b>Please let us know if you have any questions or concerns regarding your order.</b>
     
     Best regards,
     AloCouscous`
@@ -44,7 +59,37 @@ function FormClass() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ recipient,text }),
-    }).then(nav('/#header'))
+    }).then(nav("/#header"))
+    
+    // const templateParams = {
+    //   to_email: 'mohamedkhassar775@gmail.com',
+    //   from_name: `form ${user.name}`,
+    //   from_email: `form ${user.email}`,
+    //   subject: 'Selected Items',
+    //   body: text,
+    // };
+
+    
+    //   emailjs.send(
+    //     'service_sl1mw8n',
+    //     'template_vto69pe',
+    //     templateParams,
+    //     'mp1l4toRIKUpdiOGd' // Replace with your user ID from EmailJS
+    //   )
+    //     .then((response) => {
+    //       console.log('Email sent successfully!', response);
+    //     })
+    //     .catch((error) => {
+    //       console.error('Error sending email:', error);
+    //     });
+    //   Swal.fire({
+    //     title: "Thanks For Your Commande",
+    //     icon: "success",
+    //     timer: 2000,
+    //     timerProgressBar: true,
+    //     showConfirmButton: false
+    //   })
+    
   };
 
   const handleCheckboxChange = (event) => {
@@ -58,6 +103,11 @@ function FormClass() {
         prevSelectedItems.filter((i) => i.id !== itemId)
       );
     }
+    if (isSelected) {
+      setP(price+=item.price)
+    }else{
+      setP(price-=item.price);
+    }
   };
 
 
@@ -65,6 +115,8 @@ function FormClass() {
     const itemId = parseInt(event.target.value);
     const item = formM.find((item) => item.id === itemId);
     const isSelected = event.target.checked;
+    console.log(isSelected);
+
     if (isSelected) {
       setSelectedItemsMeat((prevSelectedItems) => [...prevSelectedItems, item]);
     } else {
@@ -72,14 +124,26 @@ function FormClass() {
         prevSelectedItems.filter((i) => i.id !== itemId)
       );
     }
-  };
+    if (isSelected) {
+      setP(price+=item.price)
+    }else{
+      setP(price-=item.price);
+    }
+  }
+  ;
 
   function handleSelectChange(event) {
     const selectedOption = event.target.value;
+    console.log(selectedOption);
     const selected = options.find((option) => option.value === selectedOption);
     setSelectedOption(selectedOption);
-    setSelectedImage(selected.image);
-  }
+    if (selectedOption !== "0") {
+      setP(selected.price)
+      setSelectedImage(selected.image);
+    }else{
+      setP(0);
+    }
+  } 
 
   function handleButtonClick(e) {
     e.preventDefault()
@@ -139,10 +203,10 @@ function FormClass() {
                   <form>
                     <h4>Choose CousCous Type</h4>
                     <select value={selectedOption} onChange={handleSelectChange}>
-                      <option value="">Select an option</option>
+                      <option value="0">Select an option</option>
                       {options.map((option) => (
                         <option key={option.value} value={option.value}>
-                          {option.name}
+                          {option.name} ({option.price} DH)
                         </option>
                       ))}
                     </select>
@@ -153,7 +217,7 @@ function FormClass() {
                     {
                       formM.map((frm) =>
                         <div key={frm.id}>
-                          <input disabled={!selectedOption} onChange={handleCheckboxChangeMeat} value={frm.id} type="checkbox" id={frm.label} /><label htmlFor={frm.label}>{frm.label} <strong>{frm.arabName}</strong></label><br />
+                          <input disabled={!selectedOption}  onChange={handleCheckboxChangeMeat} value={frm.id} type="checkbox" id={frm.label} /><label htmlFor={frm.label}>{frm.label} <strong>{frm.arabName}</strong><strong> ({frm.price} DH)</strong></label><br />
                         </div>
                       )
                     }
@@ -168,7 +232,7 @@ function FormClass() {
                           onChange={handleCheckboxChange}
                           disabled={!selectedOption}
                         />
-                        <label htmlFor={item.label}>{item.label} <strong>{item.arabName}</strong></label>
+                        <label htmlFor={item.label}>{item.label} <strong>({item.price} DH)</strong></label>
                       </div>
                     ))}
                     <br />
@@ -176,6 +240,7 @@ function FormClass() {
                     <button className='btn1' onClick={handleButtonClick}>Send</button>
                     {/* ------------------------Delete-All--------------------------- */}
                     <button className='btn2' onClick={handleDeleteAll}>Delete All</button>
+                  {price}
                   </form>
                 </div>
                 <img className='vegeta-img' src="../image/kasriya.png" alt="" />
@@ -199,6 +264,7 @@ function FormClass() {
           <p></p>
         )}
       </div>
+      
 
       {/* //////////////////////////////Modal/////////////////////////// */}
 
@@ -217,8 +283,8 @@ function FormClass() {
               {items.map((item, i) =>
                 selectedItems.some((selectedItem) => selectedItem.id === item.id) && (
                   <img key={i} className='img-img-modal' width={"105px"} src={item.image} alt={item.name} />
-                )
-              )}
+                  )
+                  )}
             </div>
             <div className="modal-content">
               <div className='modal-header'>
@@ -235,6 +301,7 @@ function FormClass() {
                       <li key={item.id}>{item.name}</li>
                     ))}
                     <li>{selectedOption}</li>
+                <li>total : {price} DH</li>
                   </ul>
                 </div>
               </div>
@@ -249,14 +316,14 @@ function FormClass() {
           <div className='modal-content'>
             <div className="modal-header">
               <center>
-                <h2 className='modal-title'>Please Add Your Informations</h2>
+                <h2 className='modal-title'>Please Confirm Your Order</h2>
               </center>
             </div>
             <div className="modal-body">
               <form className='formk'>    
                 <div className="modal-footer">
                   <center>
-                    <button onClick={sendEmail} className="btn1 btn-primary"> Submit </button>
+                    <button onClick={sendEmail} className="btn1 btn-primary"> Confirm </button>
                     <button className="btn2 btn-secondary" data-dismiss="modal" onClick={handleModalCloseLogin}>Close</button>
                   </center>
                 </div>

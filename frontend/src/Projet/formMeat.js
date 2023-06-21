@@ -5,7 +5,8 @@ const formM=[
         value:"beef",
         label:"Beef",
         arabName:"(لحم البقر)",
-        image:"../image/chiken.png"
+        image:"../image/chiken.png",
+        price:10
     },
     {
         id:2,
@@ -13,7 +14,8 @@ const formM=[
         value:"lamb",
         label:"Lamb",
         arabName:"(لحم خروف)",
-        image:"../image/chiken.png"
+        image:"../image/chiken.png",
+        price:10
     },
     {
         id:3,
@@ -21,7 +23,8 @@ const formM=[
         value:"chiken",
         label:"Chicken",
         arabName:"(دجاج)",
-        image:"../image/chiken.png"
+        image:"../image/chiken.png",
+        price:10
     },
     
 ]

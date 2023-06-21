@@ -5,7 +5,8 @@ const items=[
         value:"carrot",
         label:"Carrots",
         arabName:"(جزر)",
-        image: '../image/carrot.png'
+        image: '../image/carrot.png',
+        price:10
     },
     {
         id:2,
@@ -13,7 +14,8 @@ const items=[
         value:"",
         label:"Onions",
         arabName:"(بصل)",
-        image: '../image/gar3a.png'
+        image: '../image/gar3a.png',
+        price:10
     },
     {
         id:3,
@@ -21,7 +23,8 @@ const items=[
         value:"",
         label:"Potatoes",
         arabName:"(بطاطس)",
-        image: '../image/gar3a.png'
+        image: '../image/gar3a.png',
+        price:10
 
     },
     {
@@ -30,7 +33,8 @@ const items=[
         value:"",
         label:"Rutabaga",
         arabName:"(اللفت الأصفر)",
-        image: '../image/gar3a.png'
+        image: '../image/gar3a.png',
+        price:10
 
     },
     {
@@ -39,7 +43,8 @@ const items=[
         value:"",
         label:"Tomatoes",
         arabName:"(طماطم)",
-        image: '../image/gar3a.png'
+        image: '../image/gar3a.png',
+        price:10
 
     },
     {
@@ -48,7 +53,8 @@ const items=[
         value:"",
         label:"Butternut Squash",
         arabName:"(كرعة حمراء)",
-        image: '../image/gar3a.png'
+        image: '../image/gar3a.png',
+        price:10
 
 
     },
@@ -58,7 +64,8 @@ const items=[
         value:"gar3a",
         label:"Zucchini",
         arabName:"(كرعة خضراء)",
-        image: '../image/gar3a.png'
+        image: '../image/gar3a.png',
+        price:10
 
     },
     {
@@ -67,7 +74,8 @@ const items=[
         value:"",
         label:"Green Cabbage",
         arabName:"(ملفوف اخضر)",
-        image: '../image/gar3a.png'
+        image: '../image/gar3a.png',
+        price:10
 
     },
    
